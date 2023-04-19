@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint"
+  },
   "dependencies": {
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
@@ -11,12 +16,6 @@
     "nodemon": "^2.0.22"
   },
   "devDependencies": {},
-
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "lint": "eslint"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
