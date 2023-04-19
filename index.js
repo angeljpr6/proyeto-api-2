@@ -6,7 +6,6 @@ app.get('/', function (req, res){
     res.send('Hola Mundo');
 });
 
-ap
 
 app.get('/products', function (req, res){
     res.json({
