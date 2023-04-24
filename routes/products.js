@@ -2,7 +2,7 @@ var express=require ('express');
 const faker = require('faker');
 const router = express.Router();
 
-router.get('', function (req, res){
+router.get('/', function (req, res){
 
     const products=[];
     const {size}=req.query;
@@ -24,6 +24,14 @@ router.get('/:id', function (req, res){
         'name' : 'Teclado',
         'price' : 22,
         'category' : 'todos los productos'
+    })
+});
+
+router.post('/', function (req, res){
+    let body=req.body;
+    res.json({
+        'ok' : true,
+        'body' : body
     })
 });
 
