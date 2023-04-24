@@ -8,7 +8,7 @@ app.get('/', function (req, res){
     res.send('Hola Mundoo');
 });
 
-app.get('/products', function (req, res){ cx 
+app.get('/products', function (req, res){
 
     const products=[];
     const {size}=req.query;
