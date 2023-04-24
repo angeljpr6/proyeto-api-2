@@ -1,5 +1,6 @@
-//Arregla el abouttime que estaba mal
 var express=require ('express');
+const faker = require('faker');
+const { lorem } = require('faker/lib/locales/cz');
 var app=express();
 
 
@@ -7,13 +8,19 @@ app.get('/', function (req, res){
     res.send('Hola Mundoo');
 });
 
+app.get('/products', function (req, res){ cx 
 
-app.get('/products', function (req, res){
-    res.json({
-        'name':'Teclado',
-        'precio':22,
-        'category':'tecnology'
-    })
+    const products=[];
+    const {size}=req.query;
+    const limit=size || 5;
+    for (let index=0; index<10;index++){
+        products.push({
+            name: faker.commerce.productName(),
+            price: parseInt(faker.commerce.price(),10),
+            image: faker.image.imageUrl()
+        })
+    }
+    res.json(products);
 });
 app.get('/users', function (req,res){
     const [limit,offset]=req.query;
@@ -31,7 +38,7 @@ app.get('/products/:id', function (req, res){
     res.json({
         'id' : id,
         'name' : 'Teclado',
-        'precio' : 22,
+        'price' : 22,
         'category' : 'todos los productos'
     })
 });
