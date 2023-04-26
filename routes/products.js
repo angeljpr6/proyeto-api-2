@@ -7,8 +7,9 @@ router.get('/', function (req, res){
     const products=[];
     const {size}=req.query;
     const limit=size || 5;
-    for (let index=0; index<10;index++){
+    for (let index=0; index<limit;index++){
         products.push({
+            index,
             name: faker.commerce.productName(),
             price: parseInt(faker.commerce.price(),10),
             image: faker.image.imageUrl()
@@ -35,4 +36,21 @@ router.post('/', function (req, res){
     })
 });
 
+router.patch('/:id', function(req, res){
+    const {id}= req.params;
+    const {body}= req.body;
+    res.json({
+        ok: true,
+        message:"PATCH",
+        data: body,
+        id
+    })
+});
+router.delete('/:id', function(req,res){
+    let {id}=req.params;
+    res.json({
+        'op' : "delete",
+        'id' : id
+    })
+});
 module.exports = router;
