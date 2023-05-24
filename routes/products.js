@@ -1,8 +1,44 @@
 var express=require ('express');
-const faker = require('faker');
+const productServices = require("../services/servicesProducts");
 const router = express.Router();
+const {errorHandler}=require("../middlewares/error.handler");
+const { validatorHandler } = require('../middlewares/validator.handler');
+const{ schemaProductCreate, schemaProductGet, schemaProductUpdate}= require('../schema/schemaProducts');
 
-router.get('/', function (req, res){
+router.get('/', async function(req, res,next){  //añado una llamada al middleware con next
+    try {
+      const products= await productServices.getAllProducts(req,res); //el error debeo generarlo en sevices
+      res.json(products);
+  
+    } catch (error) {
+      next(error);
+    }
+});
+router.post('/', validatorHandler(schemaProductCreate, 'body'),
+ async function(req, res){
+ const createProduct= await productServices.createNewProduct(req,res);
+ return createProduct;
+})
+
+router.patch('/:id', async function(req, res){
+  const updatedProduct= await productServices.updateProduct(req,res);
+  res.json(updatedProduct);
+
+})
+router.delete('/:id', async function(req, res){
+ const deletedProduct=await productServices.deleteProduct(req,res);
+ return deletedProduct;
+})
+
+router.get('/:id', validatorHandler(schemaProductGet, 'params') , async function(req, res){
+   const getOneProduct= await productServices.getOneProduct(req,res);
+   return getOneProduct;
+});
+
+module.exports = router;
+
+
+/*router.get('/', function (req, res){
 
     const products=[];
     const {size}=req.query;
@@ -16,9 +52,9 @@ router.get('/', function (req, res){
         })
     }
     res.json(products);
-});
+});*/
 
-router.get('/:id', function (req, res){
+/*router.get('/:id', function (req, res){
     let (id)=req.params;
     res.json({
         'id' : id,
@@ -53,4 +89,4 @@ router.delete('/:id', function(req,res){
         'id' : id
     })
 });
-module.exports = router;
+module.exports = router;*/
